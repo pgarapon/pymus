@@ -8,7 +8,7 @@ Load experimental setup (probe details, sequence, scanning region) and compute i
 
 You will need a distribution of Python and several classic python packages, that most likely come with the distribution of Python, or can be easily installed with Pip Install Packages `pip` see [here](https://pip.pypa.io/en/stable/installing/). 
 
-* [Python](https://www.python.org/download/releases/2.7/) - A python distribution ([Conda]{https://conda.io/docs/user-guide/install/index.html} is recommended)
+* [Python](https://www.python.org/download/releases/2.7/) - A python distribution ([Conda](https://conda.io/docs/user-guide/install/index.html) is recommended)
 * [numpy](http://www.numpy.org/) The classic array library. 
 * [scipy](https://www.scipy.org/) Not less classic scientific computation library. 
 * [matplotlib](https://matplotlib.org/) A Python plotting/charting library. 
@@ -27,7 +27,8 @@ pip install numpy
 Download the repo to a location of your choice `/Users/YourSelf/projects/pymus`. 
 
 In order for python to have access to different modules at startup, one convenient solution is to create a `pymus.pth` file that would be located at a location of the style:
-```/Users/YourSelf/miniconda2/lib/python2.7/site-packages/pymus.pth
+```
+/Users/YourSelf/miniconda2/lib/python2.7/site-packages/pymus.pth
 ```
 To find out about your specific prefix (`/Users/YourSelf/miniconda2/`), run `python` and then `import sys` and then `sys.prefix`. 
 
@@ -37,7 +38,8 @@ The `pymus.pth` file should have just one line that is the absolute path to your
 ## Building an image
 
 The following test should run a Plane-Wave simplified beamforming and display an echogeinicity of a phantom image. 
-``` python experiment/test_pymus.py
+``` 
+python experiment/test_pymus.py
 ```
 
 ## Documentation 
