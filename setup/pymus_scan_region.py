@@ -94,3 +94,9 @@ class ScanRegion:
 							nz=len(self.z_axis))
 		return log_str 
 
+def ImportFromCreatis():
+	r_name = "scanning_region_picmus.hdf5"
+	pymusutil.download_dataset(r_name,pymusutil.TO_DATA_TMP)
+	scan_region = ScanRegion()
+	scan_region.read_file(pymusutil.TO_DATA_TMP + r_name,"US/US_DATASET0000/")
+	scan_region.write_file(pymusutil.TO_DATA + "scan_region/linear_scan_region.hdf5","scan_region")
