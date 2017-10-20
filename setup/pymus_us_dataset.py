@@ -31,8 +31,14 @@ class UsDataSet(object):
 		self.sound_speed=1500.
 
 	def match(self,data_array):
-		print(data_array.shape)
-		n_ang, n_el, n_sampl = data_array.shape
+		n_ang = 2
+		n_el = 0
+		n_sampl = 0
+		if len(data_array.shape) == 2:
+			n_ang = 1
+			n_el, n_sampl = data_array.shape
+		else:
+			n_ang, n_el, n_sampl = data_array.shape
 		s_ang = len(self.sequence.angles)
 		p_el = self.probe.num_channels
 		if n_ang != s_ang:
@@ -51,7 +57,7 @@ class UsDataSet(object):
 		return 0
 
 	def __str__(self):
-		res = ( " US dataset - {nm} {t0} "
+		res = ( "US dataset - {nm} {t0} "
 				" {prb} - {seq} - data -> {dt} "
 			).format(nm=self.name,t0=self.date,prb=str(self.probe),seq=str(self.sequence),dt=str(self.data.shape))
 		return res

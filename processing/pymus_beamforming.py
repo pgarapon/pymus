@@ -50,7 +50,7 @@ class BeamFormer(object):
 			raise pymus_dataset.IncompatibleDatasetSettings(" incompatible data - impossible to beamform ")
 		dataset.sound_speed = 1540. # TODO
 		angls = sequence.angles
-		logging.info(" Beamforming signal ... ")
+		logging.info("Beamforming signal ... ")
 		''' CODA in time unit '''
 		time_vector = sequence.initial_time + np.arange(dataset.num_samples)/self.probe.sampling_freq
 
