@@ -20,9 +20,9 @@ class UsPWSequence(object):
 		self.angles=np.array([])
 
 	def __str__(self):
-		res_string = ( " Us PW Sequence - N_angles = {nang} "
-					   " init_time = {t0} - prf = {prf} "
-					   " mod_freq = {mf} "
+		res_string = ( "Us PW Sequence - N_angles = {nang} "
+					   "init_time = {t0} - prf = {prf} "
+					   "mod_freq = {mf} "
 					 ).format(nang=len(self.angles),
 							  t0=self.initial_time,
 							  prf=self.prf,

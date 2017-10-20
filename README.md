@@ -48,7 +48,9 @@ python experiment/test_pymus.py
 
 * **Pierre Garapon** - *Initial work* - [pgarapon](https://github.com/pgarapon)
 
-This project is based on porting to python the matlab project [Picmus](https://www.creatis.insa-lyon.fr/Challenge/IEEE_IUS_2016/home). 
+This project is based on porting to python the matlab project [Picmus](https://www.creatis.insa-lyon.fr/Challenge/IEEE_IUS_2016/home). The Plane Wave Imaging Challenge in Medical UltraSound. See the following paper:
+
+*Liebgott, H., Rodriguez-Molares, A., Jensen, J.A., Bernard, O., "Plane-Wave Imaging Challenge in Medical Ultrasound", in IEEE International Ultrasonics Symposium, Tours, France., 2016, p. accepted
 
 See also the list of [contributors](https://github.com/pymus/contributors) who participated in this project.
 

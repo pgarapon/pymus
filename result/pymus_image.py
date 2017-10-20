@@ -59,7 +59,7 @@ class EchoImage(object):
 	def read_file(self,filename,prefix):
 		data_from_file = {'title' : None, 'data' : None}
 		res = pymusutil.generic_hdf5_read(filename,prefix,data_from_file)
-		print(data_from_file)
+		logging.debug(data_from_file)
 		if data_from_file['title'] is None:
 			logging.error("title not found in %s:%s " % (filename,prefix))
 		else:

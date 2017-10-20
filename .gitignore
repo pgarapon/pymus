@@ -1,0 +1,12 @@
+# DATA files             # 
+##########################
+data/echo/
+data/scan_region/
+data/probe/
+data/processing/
+data/sequence/
+data/result/
+
+# Output files (images)  #
+##########################
+experiment/output/
