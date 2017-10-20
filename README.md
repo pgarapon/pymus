@@ -2,7 +2,7 @@
 
 A python package for medical ultrasound imaging 
 
-Load experimental setup (probe details, sequence, scanning region) and compute imaging in Plane Wave Compounding mode.
+Load experimental setup (probe details, sequence, scanning region) and compute imaging in Plane Wave Compounding mode. See the [wiki](https://github.com/pgarapon/pymus/wiki/Python-in-medical-ultrasounds---wiki)
 
 ### You will need:
 
@@ -50,7 +50,7 @@ python experiment/test_pymus.py
 
 This project is based on porting to python the matlab project [Picmus](https://www.creatis.insa-lyon.fr/Challenge/IEEE_IUS_2016/home). The Plane Wave Imaging Challenge in Medical UltraSound. See the following paper:
 
-*Liebgott, H., Rodriguez-Molares, A., Jensen, J.A., Bernard, O., "Plane-Wave Imaging Challenge in Medical Ultrasound", in IEEE International Ultrasonics Symposium, Tours, France., 2016, p. accepted
+Liebgott, H., Rodriguez-Molares, A., Jensen, J.A., Bernard, O., "Plane-Wave Imaging Challenge in Medical Ultrasound", in IEEE International Ultrasonics Symposium, Tours, France., 2016, p. accepted
 
 See also the list of [contributors](https://github.com/pymus/contributors) who participated in this project.
 

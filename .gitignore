@@ -6,7 +6,20 @@ data/probe/
 data/processing/
 data/sequence/
 data/result/
+data/tmp
 
 # Output files (images)  #
 ##########################
 experiment/output/
+
+# Keep dir structure     #
+##########################
+!data/echo/.keep
+!data/scan_region/.keep
+!data/probe/.keep
+!data/processing/.keep
+!data/sequence/.keep
+!data/result/.keep
+!experiment/output/.keep
+!data/tmp/.keep
+

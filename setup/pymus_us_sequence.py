@@ -59,3 +59,12 @@ class UsPWSequence(object):
 			logging.error("prf data not found in %s:%s " % (filename,prefix))
 		else:
 			self.sampling_freq = data_from_file[key_prf][0]
+
+def ImportFromCreatis(nbPW=3):
+	f_name = "dataset_rf_in_vitro_type1_transmission_1_nbPW_%s.hdf5" % nbPW
+	pymusutil.download_dataset(f_name,pymusutil.TO_DATA_TMP)
+	sequence = UsPWSequence()
+	sequence.read_file(pymusutil.TO_DATA_TMP + f_name,"US/US_DATASET0000/",caps_prf=True)
+	sequence.write_file(pymusutil.TO_DATA + "sequence/sequence_nb_pw_%s.hdf5" % nbPW,"sequence")
+
+	

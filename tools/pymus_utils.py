@@ -7,6 +7,62 @@ import numpy as np
 
 logging.basicConfig(level=logging.INFO)
 
+S_URL_CREATIS_PREFIX = "https://www.creatis.insa-lyon.fr/EvaluationPlatform/picmus/dataset"
+
+pt_exp = os.path.abspath(os.path.dirname(__file__))
+TO_PYMUS="/".join(pt_exp.split("/")[:-1]) + "/"
+TO_DATA = TO_PYMUS + "data/"
+TO_DATA_TEST = TO_DATA + "test/"
+TO_DATA_TMP = TO_DATA + "tmp/"
+
+S_PW_CHOICES = [1 + 2*i for i in range(37) ]
+S_PHT_CHOICES = ["numerical","in_vitro_type1","in_vitro_type2"]
+S_DATA_TYPES = ["scan","sequence","probe","dataset"]
+
+class DataNotSupported(Exception):
+	pass 
+
+def download_data(remote_filename,url,local_path,force_download=None):
+	if not os.path.exists(local_path):
+		try:
+			os.makedirs(local_path)
+		except Exception as e:
+			logging.error(" DIR creation failed %s " % e )
+			return 1
+	if force_download is None and remote_filename in [ n.split("/")[-1] for n in glob.glob(local_path + "/*") ]:
+		logging.info(" File found %s -> %s " % (local_path,remote_filename) )
+		return 0
+	else:
+		f_write = open(local_path  + remote_filename,"wb")
+		try:
+			f_read = urllib2.urlopen(url + "/" + remote_filename)
+			logging.info(" Downloading %s/%s ... " % (url,remote_filename))
+			f_write.write(f_read.read())
+
+		except urllib2.HTTPError as e:
+			logging.error(" HTTP Error - url = %s/%s - ERR = %s " % (url,remote_filename,e) )
+			return 1
+		except urllib2.URLError as e:
+			logging.error(" URL Error - url = %s/%s - ERR = %s " % (url,remote_filename,e) )
+			return 1
+
+	return 0
+
+def download_dataset(filename,path_to):
+	dwnld_data = download_data(filename,S_URL_CREATIS_PREFIX,path_to)
+	if dwnld_data > 0:
+		logging.error(" Error downloading data ")
+
+def creatis_dataset_filename(phantom_selection, nbPW):
+	if phantom_selection not in S_PHT_CHOICES or nbPW not in S_PW_CHOICES:
+		raise DataNotSupported(" Data request %s %s not supported " % ( phantom_selection,nbPW) )
+
+	return "dataset_rf_%s_transmission_1_nbPW_%s.hdf5" % (phantom_selection,nbPW)
+
+def has_data(prefix,fname):
+	spl_str = "%s/" % prefix
+	return fname.split("/")[-1] in [ g.split(spl_str)[-1] for g in glob.glob(TO_DATA + "%s*" % spl_str)	]
+
 def generic_hdf5_write(filename,prefix=None,overwrite=False,fields={}):
 	f = h5py.File(filename,"w")
 	g_prf = f

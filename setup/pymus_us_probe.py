@@ -1,6 +1,7 @@
 import logging
 import tools.pymus_utils as pymusutil
 import numpy as np
+import glob
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -79,3 +80,11 @@ class UsProbe(object):
 			logging.error("sampling_frequency data not found in %s:%s " % (filename,prefix))
 		else:
 			self.sampling_freq = data_from_file['sampling_frequency'][0]
+
+
+def ImportFromCreatis():
+	dummy_name = "dataset_rf_in_vitro_type1_transmission_1_nbPW_3.hdf5"
+	pymusutil.download_dataset(dummy_name,pymusutil.TO_DATA_TMP)
+	probe = UsProbe()
+	probe.read_file(pymusutil.TO_DATA_TMP + dummy_name,"US/US_DATASET0000/","probe_")
+	probe.write_file(pymusutil.TO_DATA + "probe/linear_probe.hdf5","probe")

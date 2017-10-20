@@ -79,4 +79,17 @@ class UsDataSet(object):
 						  'sound_speed' : self.sound_speed }
 		pymusutil.generic_hdf5_write(filename,prefix,overwrite,data_to_write)
 
+def ImportFromCreatis(nbPW=3,pht="in_vitro_type1"):
+	f_name = "dataset_rf_%s_transmission_1_nbPW_%s.hdf5" % (pht,nbPW)
+	pymusutil.download_dataset(f_name,pymusutil.TO_DATA_TMP)
+	probe = pymusprob.UsProbe()
+	probe.read_file(pymusutil.TO_DATA_TMP + f_name,"US/US_DATASET0000/","probe_") 
+	seq = pyseq.UsPWSequence()
+	seq.read_file(pymusutil.TO_DATA_TMP + f_name,"US/US_DATASET0000/",caps_prf=True) 
+	dset = UsDataSet("dataset_%s_pw" % nbPW,probe,seq)
+	dset.read_file(pymusutil.TO_DATA_TMP + f_name,"US/US_DATASET0000/")
+	dset.write_file(pymusutil.TO_DATA + "echo/%s_nb_pw_%s.hdf5" % (pht,nbPW),pht)
+
+
+
 
