@@ -1,5 +1,5 @@
 import logging
-import urllib2
+import urllib
 import os
 import glob
 import h5py
@@ -35,14 +35,14 @@ def download_data(remote_filename,url,local_path,force_download=None):
 	else:
 		f_write = open(local_path  + remote_filename,"wb")
 		try:
-			f_read = urllib2.urlopen(url + "/" + remote_filename)
+			f_read = urllib.request.urlopen(url + "/" + remote_filename)
 			logging.info(" Downloading %s/%s ... " % (url,remote_filename))
 			f_write.write(f_read.read())
 
-		except urllib2.HTTPError as e:
+		except urllib.error.HTTPError as e:
 			logging.error(" HTTP Error - url = %s/%s - ERR = %s " % (url,remote_filename,e) )
 			return 1
-		except urllib2.URLError as e:
+		except urllib.error.URLError as e:
 			logging.error(" URL Error - url = %s/%s - ERR = %s " % (url,remote_filename,e) )
 			return 1
 
@@ -72,7 +72,9 @@ def generic_hdf5_write(filename,prefix=None,overwrite=False,fields={}):
 		except KeyError:
 			g_prf = f.create_group(str(prefix)) 
 	for key_name,key_val_array in fields.items():
-		if not isinstance(key_val_array,np.ndarray):
+		if isinstance(key_val_array,str):
+			key_val_array = np.array(key_val_array).astype(np.string_)
+		elif not isinstance(key_val_array,np.ndarray):
 			key_val_array = np.array([key_val_array])
 		if key_name in g_prf.keys():
 			if overwrite:
@@ -105,7 +107,10 @@ def generic_hdf5_read(filename,prefix,data_kv):
 				logging.error(" No data %s in %s:%s " % ("/".join(key_split[:i]),filename,prefix) )
 				continue
 			i += 1
-		data_kv[key_name] = g[:]
+		try:
+			data_kv[key_name] = g[:]
+		except:
+			data_kv[key_name] = g[()]
 	f.close()
 	return 1	
 
