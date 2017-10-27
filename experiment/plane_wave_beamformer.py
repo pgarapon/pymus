@@ -9,7 +9,7 @@ import tools.pymus_utils as pymus_utils
 import numpy as np
 
 import logging
-import urllib2
+import click
 import os
 import glob
 import numpy as np
@@ -82,6 +82,7 @@ class BeamFormingConfig(object):
 		self.data.read_file(data_source,standard_specs["pht_type"])
 
 		self.im_path = pymus_utils.TO_PYMUS + "experiment/output/image_%s_bf_%s_PW.hdf5" % (standard_specs["pht_type"],standard_specs["nbPW"])
+		self.png_path = self.im_path.split(".")[0] + ".png"
 				
 
 def plane_wave_beamforming(config):
@@ -98,11 +99,14 @@ def plane_wave_beamforming(config):
 	logging.info("load and show image")
 	img = pymus_image.EchoImage(config.scan)
 	img.read_file(config.im_path,None)
-	img.show_image(dbScale=True,dynamic_range=60)  
+	img.show_image(dbScale=True,dynamic_range=60,to_file=config.png_path)  
 
-def main():
+@click.command()
+@click.option('--phantom', default="in_vitro_type1", help='Type of medium to use.')
+@click.option('--nbpw', default=3, help='Number of plane waves in illumination.')
+def main(phantom,nbpw):
 	cfg = BeamFormingConfig()
-	cfg.load_settings(standard_specs={"pht_type" : "in_vitro_type2", "nbPW" : 7})
+	cfg.load_settings(standard_specs={"pht_type" : phantom, "nbPW" : nbpw})
 	plane_wave_beamforming(cfg)
 
 if __name__ == "__main__":

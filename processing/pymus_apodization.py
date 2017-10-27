@@ -6,7 +6,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-S_NO_APOD = lambda (x,y) : x
+S_NO_APOD = lambda x: x[0]
 
 class ApodizationWindow(object):
 	''' Apodization window '''

@@ -29,7 +29,7 @@ class EchoImage(object):
 	def set_title(self,title):
 		self.title = title
 
-	def show_image(self,dbScale=True,dynamic_range=60):
+	def show_image(self,dbScale=True,dynamic_range=60,to_file=None):
 		z_m, z_M = self.scan_z_bounds
 		x_m, x_M = self.scan_x_bounds
 		z_span = z_M - z_m
@@ -50,7 +50,10 @@ class EchoImage(object):
 		ax.set_title(self.title)
 		range_ticks = [-1.*k for k in np.arange(int(dynamic_range + 1))[::-10]]
 		fig.colorbar(cax, ticks = range_ticks)
+		if to_file is not None:
+			plt.savefig(to_file)
 		plt.show()
+		
 
 	def write_file(self,filename,prefix=None,overwrite=False):
 		data_to_write = {'title' : self.title, 'data' : self.data_array}

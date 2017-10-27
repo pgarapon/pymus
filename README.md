@@ -6,12 +6,13 @@ Load experimental setup (probe details, sequence, scanning region) and compute i
 
 ### You will need:
 
-You will need a distribution of Python and several classic python packages, that most likely come with the distribution of Python, or can be easily installed with Pip Install Packages `pip` see [here](https://pip.pypa.io/en/stable/installing/). 
+You will need a distribution of Python (v 3.5+) and several classic python packages, that most likely come with the distribution of Python, or can be easily installed with Pip Install Packages `pip` see [here](https://pip.pypa.io/en/stable/installing/). 
 
-* [Python](https://www.python.org/download/releases/2.7/) - A python distribution ([Conda](https://conda.io/docs/user-guide/install/index.html) is recommended)
+* [Python 3.5+](https://www.python.org/) - A python distribution ([Anaconda](https://www.anaconda.com/download/) comes with the conda package facility and is highly recommended)
 * [numpy](http://www.numpy.org/) The classic array library. 
 * [scipy](https://www.scipy.org/) Not less classic scientific computation library. 
 * [matplotlib](https://matplotlib.org/) A Python plotting/charting library. 
+* [click](http://click.pocoo.org/) A powerful command line utility
 
 For file I/O we use the hdf5 format, so that python package is required aswell: 
 
