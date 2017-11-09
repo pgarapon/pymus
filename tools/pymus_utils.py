@@ -1,5 +1,5 @@
 import logging
-import urllib
+from urllib import error, request
 import os
 import glob
 import h5py
@@ -11,7 +11,15 @@ S_URL_CREATIS_PREFIX = "https://www.creatis.insa-lyon.fr/EvaluationPlatform/picm
 
 pt_exp = os.path.abspath(os.path.dirname(__file__))
 TO_PYMUS="/".join(pt_exp.split("/")[:-1]) + "/"
-TO_DATA = TO_PYMUS + "data/"
+PYMUS_DATA_LOCAL = TO_PYMUS + "data/"
+PYMUS_DATA_MNT = "/mnt/pymus-data/"
+
+def detectDataSource():
+	if os.path.exists(PYMUS_DATA_MNT):
+		return PYMUS_DATA_MNT
+	return PYMUS_DATA_LOCAL
+
+TO_DATA = detectDataSource()
 TO_DATA_TEST = TO_DATA + "test/"
 TO_DATA_TMP = TO_DATA + "tmp/"
 
@@ -35,14 +43,14 @@ def download_data(remote_filename,url,local_path,force_download=None):
 	else:
 		f_write = open(local_path  + remote_filename,"wb")
 		try:
-			f_read = urllib.request.urlopen(url + "/" + remote_filename)
+			f_read = request.urlopen(url + "/" + remote_filename)
 			logging.info(" Downloading %s/%s ... " % (url,remote_filename))
 			f_write.write(f_read.read())
 
-		except urllib.error.HTTPError as e:
+		except error.HTTPError as e:
 			logging.error(" HTTP Error - url = %s/%s - ERR = %s " % (url,remote_filename,e) )
 			return 1
-		except urllib.error.URLError as e:
+		except error.URLError as e:
 			logging.error(" URL Error - url = %s/%s - ERR = %s " % (url,remote_filename,e) )
 			return 1
 
@@ -113,10 +121,3 @@ def generic_hdf5_read(filename,prefix,data_kv):
 			data_kv[key_name] = g[()]
 	f.close()
 	return 1	
-
-	
-
-	
-
-	
-
